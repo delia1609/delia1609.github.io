@@ -1,10 +1,15 @@
 import React from "react";
+import { Constainer, Image } from "./Container";
+import Flex from "./Flex";
 
-const Product = ( {product} ) => {
+const Product = ({ product }) => {
   return (
-    <div>
-      Title: {product.title}
-    </div>
+    <Flex column style={{ width: '120px' }}>
+      {/* {product.title} */}
+      <Constainer>
+        <Image src={product.image} alt={product.title} /> 
+      </Constainer>
+    </Flex>
   );
 }
 

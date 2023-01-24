@@ -3,6 +3,7 @@ import { getAllProducts } from "../api/productsApi";
 import Product from "./Product";
 import styled from "styled-components";
 import Loading from "./Loading";
+import Flex from "./Flex";
 
 const Header = styled.h1`
 margin-top: 0;
@@ -31,9 +32,13 @@ const Products = () => {
   return (
     <div>
       <Header>Products</Header>
-      {data.map(item => (
-        <Product key={item.id} product={item}/>
-      ))}
+
+      <Flex style={{ flexWrap: 'wrap' , gap: '20px'}}>
+        {data.map(item => (
+          <Product key={item.id} product={item} />
+        ))}
+      </Flex>
+
     </div>
   );
 }
