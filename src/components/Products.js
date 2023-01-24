@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getAllProducts } from "../api/productsApi";
 import Product from "./Product";
+import styled from "styled-components";
+import Loading from "./Loading";
+
+const Header = styled.h1`
+margin-top: 0;
+`;
 
 const Products = () => {
   const [data, setData] = useState([]);
@@ -19,11 +25,12 @@ const Products = () => {
   }, []);
 
   if (loading) return (
-    <div>Loading...</div>
+    <Loading />
   );
 
   return (
     <div>
+      <Header>Products</Header>
       {data.map(item => (
         <Product key={item.id} product={item}/>
       ))}
