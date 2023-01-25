@@ -9,7 +9,7 @@ const Header = styled.h1`
 margin-top: 0;
 `;
 
-const Products = () => {
+const Products = ({ onClick }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -29,16 +29,24 @@ const Products = () => {
     <Loading />
   );
 
+  const handleProductClick = (product) => {
+    if (onClick) {
+      onClick(product);
+    }
+  };
+
   return (
     <div>
       <Header>Products</Header>
 
-      <Flex style={{ flexWrap: 'wrap' , gap: '20px'}}>
+      <Flex style={{ flexWrap: 'wrap', gap: '50px' }}>
         {data.map(item => (
-          <Product key={item.id} product={item} />
+          <Product 
+            key={item.id} 
+            product={item} 
+            onClick={handleProductClick}/>
         ))}
       </Flex>
-
     </div>
   );
 }
