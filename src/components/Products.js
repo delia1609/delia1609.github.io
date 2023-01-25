@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { getAllProducts } from "../api/productsApi";
 import Product from "./Product";
-import styled from "styled-components";
 import Loading from "./Loading";
-import Flex from "./Flex";
-
-const Header = styled.h1`
-margin-top: 0;
-`;
+import { Box, Typography, Grid } from "@mui/material";
+import useStyles from "./_styles";
 
 const Products = ({ onClick }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const classes = useStyles();
 
   useEffect(() => {
     async function fetchData() {
@@ -36,18 +34,21 @@ const Products = ({ onClick }) => {
   };
 
   return (
-    <div>
-      <Header>Products</Header>
-
-      <Flex style={{ flexWrap: 'wrap', gap: '50px' }}>
+    <Box>
+      <Box className={classes.header}>
+        <Typography className={classes.header} variant="h2" textAlign={"center"}>Products</Typography>
+      </Box>
+    
+      <Grid container spacing={5} rowSpacing={6} alignItems="center" sx={{margin: 0}}>
         {data.map(item => (
-          <Product 
-            key={item.id} 
-            product={item} 
-            onClick={handleProductClick}/>
+          <Grid item xs={6} sm={4} md={3} xl={2} key={item.id} style={{maxWidth: "200px"}}>
+            <Product
+              product={item}
+              onClick={handleProductClick} />
+          </Grid> 
         ))}
-      </Flex>
-    </div>
+        </Grid>
+    </Box>
   );
 }
 

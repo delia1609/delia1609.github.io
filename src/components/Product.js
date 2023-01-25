@@ -1,8 +1,9 @@
 import React from "react";
-import { Constainer, Image } from "./Container";
-import Flex from "./Flex";
+import { Card, CardActionArea, CardContent, CardMedia, Typography } from "@mui/material";
+import useStyles from "./_styles";
 
 const Product = ({ product, onClick }) => {
+  const classes = useStyles();
 
   const handleClick = () => {
     if (onClick) {
@@ -11,12 +12,21 @@ const Product = ({ product, onClick }) => {
   }
 
   return (
-    <Flex column style={{ width: '120px' }}>
-      {/* {product.title} */}
-      <Constainer onClick={handleClick}>
-        <Image src={product.image} alt={product.title} /> 
-      </Constainer>
-    </Flex>
+      <Card className={classes.container} onClick={handleClick}>
+        <CardActionArea>
+          <CardMedia 
+            sx={{ minHeight: 100,  width: 160}}
+            component="img"
+            className={classes.image}
+            image={product.image}
+          />
+          <CardContent sx={{display: "inline-block", alignSelf: "flex-end"}}>
+            <Typography variant="body3">
+              {product.title}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
   );
 }
 
