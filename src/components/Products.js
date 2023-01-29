@@ -1,55 +1,38 @@
-import React, { useEffect, useState } from "react";
-import { getAllProducts } from "../api/productsApi";
+import { useContext } from "react";
+import styled from "styled-components";
 import Product from "./Product";
 import Loading from "./Loading";
-import { Box, Typography, Grid } from "@mui/material";
-import useStyles from "./_styles";
+import { Header } from "./_styled";
+import CurrentProductContext from "../context/CurrentProductContext";
 
-const Products = ({ onClick }) => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
+const ProductsList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+`
 
-  const classes = useStyles();
-
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true);
-
-      const result = await getAllProducts();
-
-      setLoading(false);
-      setData(result);
-    }
-    fetchData();
-  }, []);
-
-  if (loading) return (
-    <Loading />
-  );
+export default function Products( {products, loading} ) {
+  const { setProduct } = useContext(CurrentProductContext);
 
   const handleProductClick = (product) => {
-    if (onClick) {
-      onClick(product);
-    }
-  };
+    setProduct(product);
+  }
+
+  if (loading) {
+    return <Loading />
+  }
 
   return (
-    <Box>
-      <Box className={classes.header}>
-        <Typography className={classes.header} variant="h2" textAlign={"center"}>Products</Typography>
-      </Box>
-    
-      <Grid container spacing={5} rowSpacing={6} alignItems="center" sx={{margin: 0}}>
-        {data.map(item => (
-          <Grid item xs={6} sm={4} md={3} xl={2} key={item.id} style={{maxWidth: "200px"}}>
-            <Product
-              product={item}
-              onClick={handleProductClick} />
-          </Grid> 
+    <div>
+      <Header>Products</Header>
+      <ProductsList>
+        {products.map(product => (
+          <Product
+            key={product.id}
+            product={product}
+            onClick={handleProductClick} />
         ))}
-        </Grid>
-    </Box>
-  );
+      </ProductsList>
+    </div>
+  )
 }
-
-export default Products;

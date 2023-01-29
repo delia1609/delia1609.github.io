@@ -1,21 +1,26 @@
-import Products from "./components/Products";
-import ProductDetails from "./components/ProductDetails";
 import { useState } from "react";
-import { Box } from "@mui/system";
+import styled from "styled-components";
+import CurrentProductContext from "./context/CurrentProductContext";
+import ProductsPage from "./pages/ProductsPage";
+
+const StyledApp = styled.div`
+  padding: 20px;
+  background-color: #eeeeee;
+  box-sizing: border-box;
+  min-height: 100vh;
+`
 
 function App() {
-  const [productClick, setProductClick] = useState();
+  const [product, setProduct] = useState(null);
 
-  const handleProductClick = (product) => {
-    setProductClick(product);
-  }
+  const context = { product, setProduct }
 
   return (
-    <Box p={2} bgcolor="#eee" minHeight="100vh">
-      {productClick ?
-        <ProductDetails product={productClick} />
-        : <Products onClick={handleProductClick} />}
-    </Box>
+    <StyledApp>
+      <CurrentProductContext.Provider value={context}>
+        <ProductsPage />
+      </CurrentProductContext.Provider>
+    </StyledApp>
   );
 }
 
