@@ -1,9 +1,7 @@
-import { useContext } from "react";
 import styled from "styled-components";
 import Product from "./Product";
 import Loading from "./Loading";
 import { Header } from "./_styled";
-import CurrentProductContext from "../context/CurrentProductContext";
 
 const ProductsList = styled.div`
   display: flex;
@@ -11,12 +9,7 @@ const ProductsList = styled.div`
   gap: 20px;
 `
 
-export default function Products( {products, loading} ) {
-  const { setProduct } = useContext(CurrentProductContext);
-
-  const handleProductClick = (product) => {
-    setProduct(product);
-  }
+export default function Products({ products, loading }) {
 
   if (loading) {
     return <Loading />
@@ -30,7 +23,7 @@ export default function Products( {products, loading} ) {
           <Product
             key={product.id}
             product={product}
-            onClick={handleProductClick} />
+          />
         ))}
       </ProductsList>
     </div>

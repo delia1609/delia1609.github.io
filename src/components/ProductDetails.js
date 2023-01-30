@@ -1,6 +1,5 @@
-import { useContext } from "react";
 import styled from "styled-components";
-import CurrentProductContext from "../context/CurrentProductContext";
+import { useCurrentProduct } from "../context/CurrentProductContext";
 import { Button, Header } from "./_styled";
 
 const Root = styled.div`
@@ -14,7 +13,7 @@ const Description = styled.p`
 export default function ProductDetails({ product }) {
   const { title, description } = product;
 
-  const { setProduct } = useContext(CurrentProductContext);
+  const { setProduct } = useCurrentProduct();
 
   const handleBackClick = () => {
     setProduct(null);

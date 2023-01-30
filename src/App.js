@@ -1,9 +1,11 @@
-import { useState } from "react";
 import styled from "styled-components";
-import CurrentProductContext from "./context/CurrentProductContext";
+import { CurrentProductProvider } from "./context/CurrentProductContext";
+import { CartContextProvider } from "./context/CartContext";
 import ProductsPage from "./pages/ProductsPage";
 
 const StyledApp = styled.div`
+  display: flex;
+  flex-direction: column;
   padding: 20px;
   background-color: #eeeeee;
   box-sizing: border-box;
@@ -11,15 +13,14 @@ const StyledApp = styled.div`
 `
 
 function App() {
-  const [product, setProduct] = useState(null);
-
-  const context = { product, setProduct }
 
   return (
     <StyledApp>
-      <CurrentProductContext.Provider value={context}>
-        <ProductsPage />
-      </CurrentProductContext.Provider>
+      <CartContextProvider>
+        <CurrentProductProvider>
+          <ProductsPage />
+        </CurrentProductProvider>
+      </CartContextProvider>
     </StyledApp>
   );
 }

@@ -1,11 +1,16 @@
 import styled from "styled-components";
+import { StyledBtn } from "./_styled";
+import { useCurrentProduct } from "../context/CurrentProductContext";
+import { useCartContext } from "../context/CartContext";
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 160px;
-  height: 200px;
+  justify-content: space-between;
+  padding: 10px 14px;
+  width: 180px;
+  height: 240px;
   background-color: #fff;
   box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
   border-radius: 12px;
@@ -15,24 +20,47 @@ const Container = styled.div`
   &:hover {
     box-shadow: 0px 0px 3px 4px rgba(0, 0, 0, 0.2);
   }
-`
+`;
 
 const Img = styled.img`
   max-width: 110px;
   max-height: 160px;
   object-fit: contain;
-`
+`;
 
-export default function Product({ product, onClick }) {
-  const handleClick = () => {
-    if (onClick) {
-      onClick(product);
-    }
+const Title = styled.div`
+  font-size: 1em;
+  font-weight: bold;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const Price = styled.div`
+font-size: 0.8em;
+`;
+
+export default function Product({ product }) {
+  const { setProduct } = useCurrentProduct();
+  const { cart, addToCart } = useCartContext();
+
+  const handleProductClick = () => {
+    setProduct(product);
+  }
+
+  const handleAddToCart = (e) => {
+    addToCart(product);
+    console.log(cart);
+    e.stopPropagation();
   }
 
   return (
-    <Container onClick={handleClick}>
+    <Container onClick={handleProductClick}>
+      <Title>{product.title}</Title>
       <Img src={product.image} alt={product.title} />
+      <Price>${product.price}</Price>
+      <StyledBtn onClick={handleAddToCart}>Add to Cart</StyledBtn>
     </Container>
   )
 }
