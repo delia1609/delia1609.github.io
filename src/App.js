@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { CurrentProductProvider } from "./context/CurrentProductContext";
 import { CartContextProvider } from "./context/CartContext";
 import ProductsPage from "./pages/ProductsPage";
+import CartStatus from "./components/CartStatus";
 
 const StyledApp = styled.div`
   display: flex;
@@ -17,6 +18,7 @@ function App() {
   return (
     <StyledApp>
       <CartContextProvider>
+        <CartStatus />
         <CurrentProductProvider>
           <ProductsPage />
         </CurrentProductProvider>

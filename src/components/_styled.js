@@ -23,7 +23,7 @@ export const Button = styled.button`
 
 export const StyledBtn = styled.button`
   padding: 4px 6px;
-  background-color: #b2efc2;
+  background-color: ${props => props.primary ? '#b2efc2' : '#bbb'};
   border: solid 1px #97caa4;
   border-radius: 4px;
   min-width: 30px;

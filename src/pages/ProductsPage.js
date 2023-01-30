@@ -3,14 +3,12 @@ import ProductDetails from "../components/ProductDetails";
 import { getAllProducts } from "../api/productsApi";
 import { useEffect, useState } from "react";
 import { useCurrentProduct } from "../context/CurrentProductContext";
-import { useCartContext } from "../context/CartContext";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const { product } = useCurrentProduct();
-  const { cart } = useCartContext();
 
   useEffect(() => {
     const getData = async () => {
@@ -27,7 +25,6 @@ export default function ProductsPage() {
 
   return (
     <>
-    <div>{cart.length}</div>
     {product ?
           <ProductDetails product={product} /> :
           <Products products={products} loading={loading} />}

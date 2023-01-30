@@ -28,6 +28,11 @@ const Img = styled.img`
   object-fit: contain;
 `;
 
+const Actions = styled.div`
+  display: flex;
+  gap: 6px;
+`
+
 const Title = styled.div`
   font-size: 1em;
   font-weight: bold;
@@ -43,7 +48,9 @@ font-size: 0.8em;
 
 export default function Product({ product }) {
   const { setProduct } = useCurrentProduct();
-  const { cart, addToCart } = useCartContext();
+  const { cart, addToCart, isInCart, removeOneFromCart } = useCartContext();
+
+  const productInCart = isInCart(product);
 
   const handleProductClick = () => {
     setProduct(product);
@@ -55,12 +62,20 @@ export default function Product({ product }) {
     e.stopPropagation();
   }
 
+  const handleRemoveFromCart = (e) => {
+    removeOneFromCart(product);
+    e.stopPropagation();
+  }
+
   return (
     <Container onClick={handleProductClick}>
       <Title>{product.title}</Title>
       <Img src={product.image} alt={product.title} />
       <Price>${product.price}</Price>
-      <StyledBtn onClick={handleAddToCart}>Add to Cart</StyledBtn>
+      <Actions>
+        <StyledBtn primary onClick={handleAddToCart}>Add to Cart</StyledBtn>
+        <StyledBtn disabled={!productInCart} onClick={handleRemoveFromCart}>Remove</StyledBtn>
+      </Actions>
     </Container>
   )
 }

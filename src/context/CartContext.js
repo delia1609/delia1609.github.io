@@ -4,16 +4,60 @@ import { useState, useContext } from "react";
 const CartContext = React.createContext();
 
 export const CartContextProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState([]); 
 
   const context = {
     cart,
+
     addToCart: (product) => {
       const newCart = [...cart];
-      newCart.push(product);
-      setCart(newCart)
+      const itemInCart = newCart.find(e => e.item.id === product.id);
+
+      if (!itemInCart) {
+        const toAdd = {
+          item: product, 
+          count: 1
+        }
+
+        newCart.push(toAdd);
+      }
+
+      else {
+        itemInCart.count++;
+      }
+
+      setCart(newCart);
+    },
+
+    isInCart: (product) => {
+      return !!cart.find(e => e.item.id === product.id);
+    },
+
+    removeOneFromCart: (product) => {
+      const newCart = [...cart];
+      const itemInCart = newCart.find(e => e.item.id === product.id);
+
+      if (!itemInCart) {
+        return;
+      }
+
+      itemInCart.count--;
+      
+      if (itemInCart.count === 0) {
+        setCart(newCart.filter(element => element.item.id !== itemInCart.item.id));
+      }
+
+      else {
+        setCart(newCart);
+      }
     }
   }
+
+  // cart
+  // {
+  //   item: //produs
+  //   count: //nr. de produse
+  // }
 
   return (
     <CartContext.Provider value={context}>
