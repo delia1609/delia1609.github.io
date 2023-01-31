@@ -21,28 +21,37 @@ export const Button = styled.button`
   }
 `
 
+const getButtonColor = (variant) => {
+  switch (variant) {
+    case 'error':
+      return '#f8869f';
+
+    default:
+      return '#bdf4b7';
+  }
+}
+
 export const StyledBtn = styled.button`
   padding: 4px 6px;
-  background-color: ${props => props.primary ? '#b2efc2' : '#bbb'};
-  border: solid 1px #97caa4;
+  background-color: ${props => getButtonColor(props.variant)};
+  border: solid 1px #999;
   border-radius: 4px;
   min-width: 30px;
-  transition: background-color .2s;
+  transition: box-shadow .2s;
   cursor: pointer;
 
-  &:hover {
-    background-color: #9bd2a9;
-    border: solid 1px #7ca787;
+  &:hover:not([disabled]) {
+    box-shadow: 0 0 4px 1px rgb(0 0 0 / 20%);
   }
 
-  &:active {
-    background-color: yellow;
-    border: solid 1px #dfde08;
+  &:active:not([disabled]) {
+    box-shadow: none;
     transition: none;
   }
 
   &:disabled {
-    background-color: #cfcfcf;
-    border: solid 1px #AAA;
+    background-color: #ddd;
+    border-color: #aaa;
+    cursor: default;
   }
 `;

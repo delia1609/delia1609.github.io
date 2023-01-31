@@ -7,6 +7,12 @@ export const CartContextProvider = ({ children }) => {
   const [cart, setCart] = useState([]); 
 
   const context = {
+      // cart
+  // {
+  //   item: //produs
+  //   count: //nr. de produse
+  // }
+  
     cart,
 
     addToCart: (product) => {
@@ -29,9 +35,13 @@ export const CartContextProvider = ({ children }) => {
       setCart(newCart);
     },
 
-    isInCart: (product) => {
-      return !!cart.find(e => e.item.id === product.id);
+    getInCart: (product) => {
+      return cart.find(e => e.item.id === product.id);
     },
+
+    isInCart: (product) =>  (
+      !!context.getInCart(product)
+    ),
 
     removeOneFromCart: (product) => {
       const newCart = [...cart];
@@ -42,7 +52,7 @@ export const CartContextProvider = ({ children }) => {
       }
 
       itemInCart.count--;
-      
+
       if (itemInCart.count === 0) {
         setCart(newCart.filter(element => element.item.id !== itemInCart.item.id));
       }
@@ -52,12 +62,6 @@ export const CartContextProvider = ({ children }) => {
       }
     }
   }
-
-  // cart
-  // {
-  //   item: //produs
-  //   count: //nr. de produse
-  // }
 
   return (
     <CartContext.Provider value={context}>

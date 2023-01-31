@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { StyledBtn } from "./_styled";
 import { useCurrentProduct } from "../context/CurrentProductContext";
 import { useCartContext } from "../context/CartContext";
+import CartProductStatus from "./CartProductStatus";
 
 const Container = styled.div`
   display: flex;
@@ -9,7 +10,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 10px 14px;
-  width: 180px;
+  width: 220px;
   height: 240px;
   background-color: #fff;
   box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
@@ -30,7 +31,10 @@ const Img = styled.img`
 
 const Actions = styled.div`
   display: flex;
+  width: 100%;
   gap: 6px;
+  align-items: center;
+  justify-content: space-between;
 `
 
 const Title = styled.div`
@@ -43,7 +47,11 @@ const Title = styled.div`
 `;
 
 const Price = styled.div`
-font-size: 0.8em;
+  font-size: 0.8em;
+`;
+
+const CountLbl = styled.div`
+  font-size: 0.9em;
 `;
 
 export default function Product({ product }) {
@@ -72,9 +80,20 @@ export default function Product({ product }) {
       <Title>{product.title}</Title>
       <Img src={product.image} alt={product.title} />
       <Price>${product.price}</Price>
+
       <Actions>
-        <StyledBtn primary onClick={handleAddToCart}>Add to Cart</StyledBtn>
-        <StyledBtn disabled={!productInCart} onClick={handleRemoveFromCart}>Remove</StyledBtn>
+        <StyledBtn onClick={handleAddToCart}>Add to Cart</StyledBtn>
+
+        <CountLbl>
+          <CartProductStatus product={product}></CartProductStatus>
+        </CountLbl>
+
+        <StyledBtn 
+          variant="error"
+          disabled={!productInCart} 
+          onClick={handleRemoveFromCart}>
+          Remove
+        </StyledBtn>
       </Actions>
     </Container>
   )
