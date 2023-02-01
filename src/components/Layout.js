@@ -23,10 +23,6 @@ export default function Layout() {
     <div>
       <Nav>
         <StyledNavLink to="/" end>Home</StyledNavLink>
-        <StyledNavLink to="about" end>About</StyledNavLink>
-        <StyledNavLink to="user" end>Users List</StyledNavLink>
-        <StyledNavLink to="user/featured" end>Featured Users</StyledNavLink>
-        <StyledNavLink to="user/1" end>User 1</StyledNavLink>
       </Nav>
 
       <Container>

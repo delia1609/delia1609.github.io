@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Product from "./Product";
 import Loading from "./Loading";
-import { Header } from "./_styled";
 import { useState, useEffect } from "react";
 import { getAllProducts } from "../api/productsApi";
 
@@ -34,7 +33,6 @@ export default function Products() {
 
   return (
     <div>
-      <Header>Products</Header>
       <ProductsList>
         {products.map(product => (
           <Product

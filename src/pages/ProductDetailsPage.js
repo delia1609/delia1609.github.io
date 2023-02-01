@@ -1,9 +1,9 @@
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getProductById } from "../api/productsApi";
-import { Button, Header } from "./_styled";
+import { Button, Header } from "../components/_styled";
 import { useEffect, useState } from "react";
-import Loading from "./Loading";
+import Loading from "../components/Loading";
 
 const Root = styled.div`
   margin: auto;
@@ -13,32 +13,38 @@ const Description = styled.p`
   font-size: 1em;
 `
 
-export default function ProductDetails() {
+export default function ProductDetailsPage() {
   const [product, setProduct] = useState();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const { productId } = useParams();
 
-  useEffect(() => {
-    const getData = async () => {
-      setLoading(true);
+  useEffect(() => (async () => {
+    setLoading(true);
 
-      const data = await getProductById(productId);
+    const data = await getProductById(productId);
 
-      setLoading(false);
+    setLoading(false);
+
+    if (!data) {
+      setError(true);
+    }
+
+    else {
       setProduct(data);
     }
 
-    getData();
-  }, [productId]);
+  })()
+    , [productId]);
 
-  if (!product) {
+  if (error) {
     return (
       <div>Product not found!</div>
     );
   }
 
-  if (loading) {
+  if (!product || loading) {
     return (
       <Loading />
     );

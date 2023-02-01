@@ -2,13 +2,9 @@ import styled from "styled-components";
 import { StyledBtn } from "./_styled";
 import { useCartContext } from "../context/CartContext";
 import CartProductStatus from "./CartProductStatus";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const StyledLink = styled(Link)`
-  
-`
-
-const Container = styled.div`
+const Container = styled(Link)`
   display: flex;
   flex-direction: column;
   align-items: center;

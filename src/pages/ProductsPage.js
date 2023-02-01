@@ -1,14 +1,19 @@
-import Products from "../components/Products";
-import ProductDetails from "../components/ProductDetails";
+import Product from "../components/Product";
 import { getAllProducts } from "../api/productsApi";
 import { useEffect, useState } from "react";
-import { useCurrentProduct } from "../context/CurrentProductContext";
+import { Header } from "../components/_styled";
+import styled from "styled-components";
+import Loading from "../components/Loading";
+
+const ProductsList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+`
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  const { product } = useCurrentProduct();
 
   useEffect(() => {
     const getData = async () => {
@@ -23,11 +28,21 @@ export default function ProductsPage() {
     getData();
   }, []);
 
+  if (loading) {
+    return <Loading />
+  }
+
   return (
     <>
-    {product ?
-          <ProductDetails product={product} /> :
-          <Products products={products} loading={loading} />}
+      <Header>Products</Header>
+      <ProductsList>
+        {products.map(product => (
+          <Product
+            key={product.id}
+            product={product}
+          />
+        ))}
+      </ProductsList>
     </>
   );
 }

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { CurrentProductProvider } from "./context/CurrentProductContext";
 import { CartContextProvider } from "./context/CartContext";
 import ProductsPage from "./pages/ProductsPage";
 import CartStatus from "./components/CartStatus";
@@ -9,7 +8,8 @@ import About from "./components/About";
 import User from "./components/User";
 import Layout from "./components/Layout";
 import UserLayout from "./components/UserLayout";
-import ProductDetails from "./components/ProductDetails";
+import ProductDetailsPage from "./pages/ProductDetailsPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const StyledApp = styled.div`
   display: flex;
@@ -43,13 +43,14 @@ function App() {
   </Routes> */}
       <CartContextProvider>
         <CartStatus />
-        <CurrentProductProvider>
           <Routes>
-            <Route path="/" element={<ProductsPage />} />
-            <Route path="product/:productId" element={<ProductDetails />} />
+            <Route path="/" element={<Layout />}>
+              <Route index element={<ProductsPage />} />
+              <Route path="product/:productId" element={<ProductDetailsPage />} />
+            </Route>
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
           {/* <ProductsPage /> */}
-        </CurrentProductProvider>
       </CartContextProvider>
     </StyledApp>
   );
