@@ -9,6 +9,7 @@ import About from "./components/About";
 import User from "./components/User";
 import Layout from "./components/Layout";
 import UserLayout from "./components/UserLayout";
+import ProductDetails from "./components/ProductDetails";
 
 const StyledApp = styled.div`
   display: flex;
@@ -23,7 +24,7 @@ function App() {
 
   return (
     <StyledApp>
-      <Routes>
+      {/* <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home /> } />
 
@@ -33,19 +34,23 @@ function App() {
             <Route path="featured" element={<div>Featured Users</div>}/>
             <Route path=":userId" element={<User />}/>
           </Route>
-        </Route>
+        </Route> 
         {/* {/* <Route path="about" element={<About />} />
         <Route path="/" element={<Home />} />
         <Route path="user/:userId" element={<User />} />
         <Route path="account/:accountId/:userId" element={<User />} />
-        <Route path="*" element={<div>Page Not Found</div>} /> */}
-      </Routes>
-      {/* <CartContextProvider>
+        <Route path="*" element={<div>Page Not Found</div>} /> 
+  </Routes> */}
+      <CartContextProvider>
         <CartStatus />
         <CurrentProductProvider>
-          <ProductsPage />
+          <Routes>
+            <Route path="/" element={<ProductsPage />} />
+            <Route path="product/:productId" element={<ProductDetails />} />
+          </Routes>
+          {/* <ProductsPage /> */}
         </CurrentProductProvider>
-      </CartContextProvider> */}
+      </CartContextProvider>
     </StyledApp>
   );
 }

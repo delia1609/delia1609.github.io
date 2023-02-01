@@ -13,9 +13,9 @@ const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   color: #176ad1;
 
-  &.active {
+  /* &.active {
     color: firebrick;
-  }
+  } */
 `
 
 export default function Layout() {

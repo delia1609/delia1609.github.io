@@ -1,14 +1,20 @@
 import styled from "styled-components";
 import { StyledBtn } from "./_styled";
-import { useCurrentProduct } from "../context/CurrentProductContext";
 import { useCartContext } from "../context/CartContext";
 import CartProductStatus from "./CartProductStatus";
+import { Link, useParams } from "react-router-dom";
+
+const StyledLink = styled(Link)`
+  
+`
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  text-decoration: none;
+  color: black;
   padding: 10px 14px;
   width: 220px;
   height: 240px;
@@ -55,46 +61,43 @@ const CountLbl = styled.div`
 `;
 
 export default function Product({ product }) {
-  const { setProduct } = useCurrentProduct();
   const { cart, addToCart, isInCart, removeOneFromCart } = useCartContext();
 
   const productInCart = isInCart(product);
 
-  const handleProductClick = () => {
-    setProduct(product);
-  }
-
   const handleAddToCart = (e) => {
     addToCart(product);
     console.log(cart);
-    e.stopPropagation();
+    e.preventDefault();
   }
 
   const handleRemoveFromCart = (e) => {
     removeOneFromCart(product);
-    e.stopPropagation();
+    e.preventDefault();
   }
 
   return (
-    <Container onClick={handleProductClick}>
-      <Title>{product.title}</Title>
-      <Img src={product.image} alt={product.title} />
-      <Price>${product.price}</Price>
+    // <Link to={`/${product}/:${productId}`}> 
+      <Container to={`/product/${product.id}`}>
+        <Title>{product.title}</Title>
+        <Img src={product.image} alt={product.title} />
+        <Price>${product.price}</Price>
 
-      <Actions>
-        <StyledBtn onClick={handleAddToCart}>Add to Cart</StyledBtn>
+        <Actions>
+          <StyledBtn onClick={handleAddToCart}>Add to Cart</StyledBtn>
 
-        <CountLbl>
-          <CartProductStatus product={product}></CartProductStatus>
-        </CountLbl>
+          <CountLbl>
+            <CartProductStatus product={product}></CartProductStatus>
+          </CountLbl>
 
-        <StyledBtn 
-          variant="error"
-          disabled={!productInCart} 
-          onClick={handleRemoveFromCart}>
-          Remove
-        </StyledBtn>
-      </Actions>
-    </Container>
+          <StyledBtn 
+            variant="error"
+            disabled={!productInCart} 
+            onClick={handleRemoveFromCart}>
+            Remove
+          </StyledBtn>
+        </Actions>
+      </Container>
+    // </Link>
   )
 }

@@ -2,6 +2,8 @@ import styled from "styled-components";
 import Product from "./Product";
 import Loading from "./Loading";
 import { Header } from "./_styled";
+import { useState, useEffect } from "react";
+import { getAllProducts } from "../api/productsApi";
 
 const ProductsList = styled.div`
   display: flex;
@@ -9,7 +11,22 @@ const ProductsList = styled.div`
   gap: 20px;
 `
 
-export default function Products({ products, loading }) {
+export default function Products() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const getData = async () => {
+      setLoading(true);
+
+      const data = await getAllProducts();
+
+      setLoading(false);
+      setProducts(data);
+    }
+
+    getData();
+  }, []);
 
   if (loading) {
     return <Loading />
