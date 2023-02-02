@@ -1,7 +1,6 @@
 import { getAllProducts } from "../api/productsApi";
 import { useEffect, useState } from "react";
 import { Header } from "../components/_styled";
-import styled from "styled-components";
 import Loading from "../components/Loading";
 import Products from "../components/Products";
 

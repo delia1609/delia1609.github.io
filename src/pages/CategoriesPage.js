@@ -28,7 +28,7 @@ export default function CategoriesPage() {
       <ul>
         {categories.map((category, index) => (
           <li key={index}>
-            <Link to={`/category/${category}`}>{category}</Link>
+            <Link to={`/categories/${category}`}>{category}</Link>
           </li>
         ))}
       </ul>

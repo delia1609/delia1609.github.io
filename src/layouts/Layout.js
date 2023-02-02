@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import styled from "styled-components";
 import { useCartContext } from "../context/CartContext";
 
@@ -8,11 +8,12 @@ margin-top: 10px;
 const Nav = styled.nav`
 display: flex;
 justify-content: space-between;
+align-items: center;
 gap: 10px;
-min-height: 50px;
+min-height: 30px;
 `
 
-const StyledNavLink = styled(NavLink)`
+export const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   color: #176ad1;
 
@@ -24,7 +25,6 @@ const StyledNavLink = styled(NavLink)`
 const MainNav = styled.div`
   display: flex;
   gap: 10px;
- 
 `
 
 export default function Layout() {
