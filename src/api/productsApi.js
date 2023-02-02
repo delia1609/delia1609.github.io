@@ -25,3 +25,25 @@ export const getProductsInCategory = async (category) => {
   const result = await axios.get(`${API_ROOT}/products/category/${category}`);
   return result.data;
 }
+
+export const getFeaturedProducts = async () => {
+  const products = await getAllProducts();
+
+  if (!products) {
+    return [];
+  }
+
+  const categoriesMap = {};
+
+  for (const product of products) {
+    const category = product.category;
+
+    if (categoriesMap[category]) {
+      continue;
+    }
+
+    categoriesMap[category] = product;
+  }
+
+  return Object.values(categoriesMap);
+}

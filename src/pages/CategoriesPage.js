@@ -1,37 +1,26 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { getAllCategories } from "../api/productsApi";
-import Loading from "../components/Loading";
+import { getFeaturedProducts } from "../api/productsApi";
+import Products from "../components/Products";
 
 export default function CategoriesPage() {
-  const [categories, setCategories] = useState([]);
+  const [featuredProducts, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
       setLoading(true); 
-      const result = await getAllCategories();
+      const result = await getFeaturedProducts();
       setLoading(false);
 
       setCategories(result);
     })();
   } ,[]);
 
-  if (loading) {
-    return <Loading />
-  }
-
   return (
     <>
-      <h1>Categories</h1>
-      <ul>
-        {categories.map((category, index) => (
-          <li key={index}>
-            <Link to={`/categories/${category}`}>{category}</Link>
-          </li>
-        ))}
-      </ul>
+      <h1>Featured Products per Categories</h1>
+      <Products products={featuredProducts} loading={loading}/>
     </>
   );
 }

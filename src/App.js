@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { CartContextProvider } from "./context/CartContext";
-import AppRoutes from "./AppRoutes";
+import AppRoutes from "./routes/AppRoutes";
 
 const StyledApp = styled.div`
   display: flex;

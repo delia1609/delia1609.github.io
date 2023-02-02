@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useCartContext } from "../context/CartContext";
 
 const Container = styled.div`
-margin-top: 10px;
+margin-top: 20px;
 `
 const Nav = styled.nav`
 display: flex;

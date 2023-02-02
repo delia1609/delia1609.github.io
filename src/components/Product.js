@@ -4,6 +4,21 @@ import { useCartContext } from "../context/CartContext";
 import CartProductStatus from "./CartProductStatus";
 import { Link } from "react-router-dom";
 
+const GetCategoryColor = (category) => {
+  switch(category) {
+    case 'electronics':
+      return '#444';
+    case 'jewelery':
+      return '#CE6E30';
+    case "men's clothing":
+      return '#4660AF';
+    case "women's clothing":
+      return '#AF467D';
+    default:
+      return '#000';
+  }
+}
+
 const Container = styled(Link)`
   display: flex;
   flex-direction: column;
@@ -13,7 +28,7 @@ const Container = styled(Link)`
   color: black;
   padding: 10px 14px;
   width: 220px;
-  height: 240px;
+  height: 300px;
   background-color: #fff;
   box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
   border-radius: 12px;
@@ -31,6 +46,12 @@ const Img = styled.img`
   object-fit: contain;
 `;
 
+const ImgWrapper = styled.div`
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+`;
+
 const Actions = styled.div`
   display: flex;
   width: 100%;
@@ -46,6 +67,15 @@ const Title = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+`;
+
+
+const Category = styled.div`
+  font-size: 0.9em;
+  background: ${props => GetCategoryColor(props.category)};
+  color: white;
+  padding: 2px 4px;
+  border-radius: 4px;
 `;
 
 const Price = styled.div`
@@ -76,7 +106,12 @@ export default function Product({ product }) {
     // <Link to={`/${product}/:${productId}`}> 
       <Container to={`/product/${product.id}`}>
         <Title>{product.title}</Title>
-        <Img src={product.image} alt={product.title} />
+        
+        <ImgWrapper>
+          <Img src={product.image} alt={product.title} />
+        </ImgWrapper>
+
+        <Category category={product.category}>{product.category}</Category>
         <Price>${product.price}</Price>
 
         <Actions>
