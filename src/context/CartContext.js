@@ -60,6 +60,12 @@ export const CartContextProvider = ({ children }) => {
       else {
         setCart(newCart);
       }
+    },
+
+    getCount: () => { 
+      let sum = 0;
+      cart.forEach(item => sum += item.count);
+      return sum;
     }
   }
 

@@ -1,15 +1,9 @@
-import Product from "../components/Product";
 import { getAllProducts } from "../api/productsApi";
 import { useEffect, useState } from "react";
 import { Header } from "../components/_styled";
 import styled from "styled-components";
 import Loading from "../components/Loading";
-
-const ProductsList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-`
+import Products from "../components/Products";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -35,14 +29,7 @@ export default function ProductsPage() {
   return (
     <>
       <Header>Products</Header>
-      <ProductsList>
-        {products.map(product => (
-          <Product
-            key={product.id}
-            product={product}
-          />
-        ))}
-      </ProductsList>
+      <Products products={products} loading={loading} />
     </>
   );
 }
