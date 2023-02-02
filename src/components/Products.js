@@ -8,7 +8,7 @@ const ProductsList = styled.div`
   gap: 20px;
 `
 
-export default function Products({ products, loading }) {
+export default function Products({ products, loading, hideCategory }) {
   if (loading) {
     return <Loading />
   }
@@ -20,6 +20,7 @@ export default function Products({ products, loading }) {
           <Product
             key={product.id}
             product={product}
+            hideCategory={hideCategory}
           />
         ))}
       </ProductsList>

@@ -86,7 +86,7 @@ const CountLbl = styled.div`
   font-size: 0.9em;
 `;
 
-export default function Product({ product }) {
+export default function Product({ product, hideCategory }) {
   const { cart, addToCart, isInCart, removeOneFromCart } = useCartContext();
 
   const productInCart = isInCart(product);
@@ -111,7 +111,7 @@ export default function Product({ product }) {
           <Img src={product.image} alt={product.title} />
         </ImgWrapper>
 
-        <Category category={product.category}>{product.category}</Category>
+        {!hideCategory && <Category category={product.category}>{product.category}</Category>}
         <Price>${product.price}</Price>
 
         <Actions>

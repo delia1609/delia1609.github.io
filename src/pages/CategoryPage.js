@@ -24,7 +24,7 @@ export default function CategoryPage() {
   return (
     <>
       <Header>Category - {categoryId}</Header>
-      <Products products={products} loading={loading} />
+      <Products products={products} loading={loading} hideCategory={true}/>
     </>
   );
 }
