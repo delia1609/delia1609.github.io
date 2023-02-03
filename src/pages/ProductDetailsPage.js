@@ -53,7 +53,7 @@ export default function ProductDetailsPage() {
 
   return (
     <Root>
-      <Link to="/"><Button >{'<'}</Button></Link>
+      {/* <Link to="/"><Button >{'<'}</Button></Link> */}
       <Header>{title}</Header>
 
       <Description>{description}</Description>

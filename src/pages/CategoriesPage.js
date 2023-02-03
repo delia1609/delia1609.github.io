@@ -19,7 +19,7 @@ export default function CategoriesPage() {
 
   return (
     <>
-      <h1>Featured Products per Categories</h1>
+      <h1>Featured Products</h1>
       <Products products={featuredProducts} loading={loading}/>
     </>
   );
