@@ -16,6 +16,7 @@ min-height: 30px;
 export const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   color: #176ad1;
+  text-transform: capitalize;
 
   /* &.active {
     color: firebrick;

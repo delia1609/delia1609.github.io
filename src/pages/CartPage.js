@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useCartContext } from "../context/CartContext";
 import CartItem from "../components/CartItem";
+import MantineCartItem from "../components/MantineCartItem";
+import { Link } from "react-router-dom";
 
 const Items = styled.div`
   display: flex;
@@ -35,7 +37,10 @@ export default function CartPage() {
     <>
       <Items>
         {cart.map((element) => (
-          <CartItem key={element.item.id} item={element} />
+          <Link to={`/product/${element.itemt.id}`} style={{textDecoration: "none"}}>
+            <MantineCartItem key={element.item.id} item={element} />
+          </Link>
+          // <CartItem key={element.item.id} item={element} />
         ))}
       </Items>
       <Total>Total: ${Math.round(total * 100) / 100}</Total>

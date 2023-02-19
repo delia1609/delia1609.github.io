@@ -1,24 +1,46 @@
+import { ColorSchemeProvider, MantineProvider, Paper } from "@mantine/core";
+import { useHotkeys, useLocalStorage } from "@mantine/hooks";
 import styled from "styled-components";
+import AppShellMain from "./components/AppShell";
 import { CartContextProvider } from "./context/CartContext";
 import AppRoutes from "./routes/AppRoutes";
 
-const StyledApp = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  background-color: #eeeeee;
-  box-sizing: border-box;
-  min-height: 100vh;
-`
+// const StyledApp = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   padding: 20px;
+//   background-color: #eeeeee;
+//   box-sizing: border-box;
+//   min-height: 100vh;
+// `
 
 function App() {
 
+  const [colorScheme, setColorScheme] = useLocalStorage({
+    key: 'mantine-color-scheme',
+    defaultValue: 'light',
+    getInitialValueInEffect: true,
+  });
+
+  const toggleColorScheme = (value) => setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+
+  useHotkeys([['mod+J', () => toggleColorScheme()]]);
+
   return (
-    <StyledApp>
+
+    // <StyledApp>
       <CartContextProvider>
-        <AppRoutes />
+        <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+          <MantineProvider theme={{ colorScheme }} withNormalizeCSS withGlobalStyles>
+            <Paper p="md" radius={0} style={{ minHeight: "100vh" }}>
+                <AppShellMain />
+            </Paper>
+          </MantineProvider>
+        </ColorSchemeProvider>
+
+        {/* <AppRoutes /> */} 
       </CartContextProvider>
-    </StyledApp>
+    // </StyledApp>
   );
 }
 

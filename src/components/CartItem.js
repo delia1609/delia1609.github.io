@@ -55,11 +55,6 @@ const Space = styled.div`
   flex: 1;  
 `
 
-const Total = styled.div`
-  font-size: 1.1em;
-  font-weight: bold;
-`
-
 export default function CartItem({ item }) {
   const { count, item: product } = item;
 
