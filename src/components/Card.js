@@ -1,6 +1,7 @@
 import { Badge, Button, Card, Group, Image, Text, Title, useMantineColorScheme } from "@mantine/core";
 import { IconGhost2 } from "@tabler/icons";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 import { useCartContext } from "../context/CartContext";
 import CartProductStatus from "./CartProductStatus";
 
@@ -28,12 +29,13 @@ export default function SimpleCard({ product, hideCategory }) {
   return (
     <Link to={`/product/${product.id}`} style={{textDecoration: "none"}}>
       <Card shadow="sm" p="lg" radius="md" withBorder>
-        <Card.Section style={{ minHeight: "220px", display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "white", border: { border } }}>
+        <Card.Section style={{ minHeight: "50vh", display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "white", border: { border } }}>
           <Image
             src={product.image}
-            height={160}
             alt={product.title}
-            style={{ width: "auto", maxHeight: "220px", objectFit: "contain" }}
+            height="40vh"
+            fit="contain"
+            style={{ width: "auto", maxHeight: "50vh"}}
           />
         </Card.Section>
 

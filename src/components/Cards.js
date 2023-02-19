@@ -17,9 +17,10 @@ export default function Cards({ products, loading, hideCategory }) {
           sm={3}
           xs={3}
           key={product.id}>
-          <SimpleCard
+          <SimpleCard 
             product={product}
             hideCategory={hideCategory} 
+            style= {{height: "90%"}}
             />
         </Grid.Col>
       ))}
