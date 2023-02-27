@@ -37,7 +37,7 @@ export default function CartPage() {
     <>
       <Items>
         {cart.map((element) => (
-          <Link to={`/product/${element.itemt.id}`} style={{textDecoration: "none"}}>
+          <Link to={`/product/${element.item.id}`} style={{textDecoration: "none"}}>
             <MantineCartItem key={element.item.id} item={element} />
           </Link>
           // <CartItem key={element.item.id} item={element} />
