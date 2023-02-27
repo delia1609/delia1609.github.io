@@ -5,6 +5,21 @@ import styled from "styled-components";
 import { useCartContext } from "../context/CartContext";
 import CartProductStatus from "./CartProductStatus";
 
+const GetCategoryColor = (category) => {
+  switch(category) {
+    case 'electronics':
+      return 'cyan';
+    case 'jewelery':
+      return 'violet';
+    case "men's clothing":
+      return 'indigo';
+    case "women's clothing":
+      return 'pink';
+    default:
+      return 'dark';
+  }
+}
+
 export default function SimpleCard({ product, hideCategory }) {
   const { cart, addToCart, isInCart, removeOneFromCart } = useCartContext();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
@@ -13,6 +28,8 @@ export default function SimpleCard({ product, hideCategory }) {
   const border = dark ? "10px solid #25262b" : "none";
 
   const productInCart = isInCart(product);
+
+  const categoryColor = GetCategoryColor(product.category);
 
   const handleAddToCart = (e) => {
     addToCart(product);
@@ -46,7 +63,7 @@ export default function SimpleCard({ product, hideCategory }) {
         <Group position="apart" mt="md" mb="xs">
           <Text size="sm">${product.price}</Text>
 
-          {!hideCategory && <Badge color="pink" variant="light">
+          {!hideCategory && <Badge color={categoryColor} variant="light">
             {product.category}
           </Badge>}
         </Group>

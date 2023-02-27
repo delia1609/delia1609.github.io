@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom"
 import { getProductsInCategory } from "../api/productsApi";
 import { Header } from "../components/_styled";
 import Products from "../components/Products";
+import Cards from "../components/Cards";
 
 export default function CategoryPage() {
   const [products, setProducts] = useState([]);
@@ -24,7 +25,7 @@ export default function CategoryPage() {
   return (
     <>
       <Header>Category - {categoryId}</Header>
-      <Products products={products} loading={loading} hideCategory={true}/>
+      <Cards products={products} loading={loading} hideCategory={true}/>
     </>
   );
 }
