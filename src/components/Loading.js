@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { Loader } from "@mantine/core";
+import { Paper } from "@mantine/core";
 
-const Centered = styled.div`
+const Centered = styled(Paper)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,7 +16,6 @@ const Centered = styled.div`
 const Inner = styled.div`
   padding: 20px;
   border-radius: 6px;
-  background-color: white;
   min-width: 160px;
   text-align: center;
 `
@@ -23,7 +24,8 @@ export default function Loading({ message = 'Loading...' }) {
   return (
     <Centered>
       <Inner>
-        {message}
+        <Loader />
+        <div>{message}</div>
       </Inner>
     </Centered>
   )

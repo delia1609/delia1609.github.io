@@ -1,5 +1,5 @@
 import { Badge, Button, Card, Group, Image, MediaQuery, Text, Title, useMantineColorScheme } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
+import { useHover, useMediaQuery } from "@mantine/hooks";
 import { IconGhost2 } from "@tabler/icons";
 import { Link } from "react-router-dom";
 import { useCartContext } from "../context/CartContext";
@@ -23,16 +23,18 @@ const GetCategoryColor = (category) => {
 export default function SimpleCard({ product, hideCategory }) {
   const { cart, addToCart, isInCart, removeOneFromCart } = useCartContext();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-
+  const { hovered, ref } = useHover();
 
   const smallScreen = useMediaQuery('(max-width: 768px)');
+  const cartButtonsScreen = useMediaQuery('(max-width: 1246px)');
 
   const dark = colorScheme === 'dark';
-  const border = dark ? "10px solid #25262b" : "none";
+  const cardInnerShadow = dark ? "inset 10px 10px 10px 10px #25262b" : "none";
 
   const productInCart = isInCart(product);
-
   const categoryColor = GetCategoryColor(product.category);
+  const groupPosition = cartButtonsScreen ? "center" : "apart";
+  const cardShadow = dark ? (hovered ? "rgba(254, 222, 255, 0.35) 0px 2px 7px" : "sm") : (hovered ? "rgba(54, 22, 119, 0.35) 0px 4px 10px" : "sm");
 
   const ImageStyle = {
     maxHeight: smallScreen ? "50vh" : "220px",
@@ -40,13 +42,15 @@ export default function SimpleCard({ product, hideCategory }) {
   };
 
   const CartStyle = {
-    display: "flex", 
-    justifyContent: "center", 
-    alignItems: "center", 
-    backgroundColor: "white", 
-    border: { border },
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    boxShadow: {cardInnerShadow},
     minHeight: smallScreen ? "50vh" : "220px"
   };
+
+
 
   const handleAddToCart = (e) => {
     addToCart(product);
@@ -61,19 +65,20 @@ export default function SimpleCard({ product, hideCategory }) {
 
   return (
     <Link to={`/product/${product.id}`} style={{ textDecoration: "none" }}>
-      <Card shadow="sm" p="lg" radius="md" withBorder>
-          <Card.Section 
-            style={CartStyle}
-          >
-              <Image
-                src={product.image}
-                alt={product.title}
-                fit="contain"
-                height={smallScreen ? "40vh" : "160px"}
-                width={"100%"}
-                style={ImageStyle}
-              />
-          </Card.Section>
+      <Card shadow={cardShadow} p="lg" radius="md" withBorder ref={ref}>
+        <Card.Section
+          style={CartStyle}
+          shadow={cardShadow}
+        >
+          <Image
+            src={product.image}
+            alt={product.title}
+            fit="contain"
+            height={smallScreen ? "40vh" : "160px"}
+            width={"100%"}
+            style={ImageStyle}
+          />
+        </Card.Section>
 
         <div style={{ width: 200 }}>
           <Text truncate weight={500}>{product.title}</Text>
@@ -91,7 +96,7 @@ export default function SimpleCard({ product, hideCategory }) {
           {product.description}
         </Text>
 
-        <Group position="apart" spacing="sm" mt="md" noWrap>
+        <Group position={groupPosition} spacing="sm" mt="md" noWrap>
           <Button onClick={handleAddToCart} variant="light" color="blue" radius="md">
             Add to Cart
           </Button>

@@ -1,18 +1,10 @@
 import { ColorSchemeProvider, MantineProvider, Paper } from "@mantine/core";
 import { useHotkeys, useLocalStorage } from "@mantine/hooks";
+import { useEffect } from "react";
 import styled from "styled-components";
 import AppShellMain from "./components/AppShell";
 import { CartContextProvider } from "./context/CartContext";
 import AppRoutes from "./routes/AppRoutes";
-
-// const StyledApp = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   padding: 20px;
-//   background-color: #eeeeee;
-//   box-sizing: border-box;
-//   min-height: 100vh;
-// `
 
 function App() {
 
@@ -25,6 +17,10 @@ function App() {
   const toggleColorScheme = (value) => setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 
   useHotkeys([['mod+J', () => toggleColorScheme()]]);
+
+  useEffect(() => {
+    document.title = "Delirium Shop"
+  }, [])
 
   return (
 
