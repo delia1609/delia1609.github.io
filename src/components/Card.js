@@ -1,8 +1,10 @@
 import { Badge, Button, Card, Group, Image, MediaQuery, Text, Title, useMantineColorScheme } from "@mantine/core";
 import { useHover, useMediaQuery } from "@mantine/hooks";
 import { IconGhost2 } from "@tabler/icons";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useCartContext } from "../context/CartContext";
+import { useWishlistContext } from "../context/WishlistContext";
 import CartProductStatus from "./CartProductStatus";
 
 const GetCategoryColor = (category) => {
@@ -22,19 +24,25 @@ const GetCategoryColor = (category) => {
 
 export default function SimpleCard({ product, hideCategory }) {
   const { cart, addToCart, isInCart, removeOneFromCart } = useCartContext();
+  const { wishlist, addToWishlist, isInWishlist, removeOneFromWishlist } = useWishlistContext();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const { hovered, ref } = useHover();
 
   const smallScreen = useMediaQuery('(max-width: 768px)');
   const cartButtonsScreen = useMediaQuery('(max-width: 1246px)');
 
+  
+
   const dark = colorScheme === 'dark';
   const cardInnerShadow = dark ? "inset 10px 10px 10px 10px #25262b" : "none";
 
   const productInCart = isInCart(product);
+  const productInWishlist = isInWishlist(product);
   const categoryColor = GetCategoryColor(product.category);
   const groupPosition = cartButtonsScreen ? "center" : "apart";
   const cardShadow = dark ? (hovered ? "rgba(254, 222, 255, 0.35) 0px 2px 7px" : "sm") : (hovered ? "rgba(54, 22, 119, 0.35) 0px 4px 10px" : "sm");
+  
+  const [wishlistText, setWishlistText] = useState(productInWishlist ? 'Remove from Wishlist' : 'Add to Wishlist');
 
   const ImageStyle = {
     maxHeight: smallScreen ? "50vh" : "220px",
@@ -60,6 +68,19 @@ export default function SimpleCard({ product, hideCategory }) {
 
   const handleRemoveFromCart = (e) => {
     removeOneFromCart(product);
+    e.preventDefault();
+  }
+
+  const handleWishlist = (e) => {
+    if(productInWishlist) {
+      removeOneFromWishlist(product);
+      setWishlistText("Add to Wishlist");
+    }
+
+    else {
+      addToWishlist(product);
+      setWishlistText("Remove from Wishlist");
+    }  
     e.preventDefault();
   }
 
@@ -109,9 +130,9 @@ export default function SimpleCard({ product, hideCategory }) {
             disabled={!productInCart}
             onClick={handleRemoveFromCart}>Remove</Button>
         </Group>
-
-        <Button leftIcon={<IconGhost2 />} variant="gradient" fullWidth mt="md" radius="md" gradient={{ from: 'teal', to: 'blue', deg: 60 }}>
-          Add to Wishlist
+        
+        <Button onClick={handleWishlist} leftIcon={<IconGhost2 />} variant="gradient" fullWidth mt="md" radius="md" gradient={ wishlistText==="Remove from Wishlist" ? {from: 'red', to: 'orange', deg: 60 } : { from: 'teal', to: 'blue', deg: 60 }}>
+          {wishlistText}
         </Button>
       </Card>
     </Link>

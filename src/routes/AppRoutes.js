@@ -5,6 +5,8 @@ import ProductDetailsPage from "../pages/ProductDetailsPage";
 import CartPage from "../pages/CartPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import { CategoriesRoutes } from "./CategoriesRoutes";
+import { WishlistContextProvider } from "../context/WishlistContext";
+import WishlistPage from "../pages/WishlistPage";
 
 export default function AppRoutes() {
   return (
@@ -13,6 +15,7 @@ export default function AppRoutes() {
         <Route index element={<ProductsPage />} />
         <Route path="product/:productId" element={<ProductDetailsPage />} />
         <Route path="cart" element={< CartPage />} />
+        <Route path="wishlist" element={< WishlistPage/>} />
         
         {CategoriesRoutes}
       </Route>

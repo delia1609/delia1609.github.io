@@ -18,8 +18,10 @@ import CartPage from "../pages/CartPage";
 import { CategoriesRoutes } from "../routes/CategoriesRoutes";
 import NotFoundPage from "../pages/NotFoundPage";
 import styled from "styled-components";
-import { IconHome2, IconShoppingCart } from '@tabler/icons';
+import { IconHeart, IconHome2, IconShoppingCart } from '@tabler/icons';
 import { useCartContext } from '../context/CartContext';
+import { useWishlistContext } from '../context/WishlistContext';
+import WishlistPage from '../pages/WishlistPage';
 
 const StyledText = styled(Text)`
 text-align: center;
@@ -31,6 +33,7 @@ export default function AppShellMain() {
   const [navWidth, setNavWidth] = useState({ sm: 0, lg: 0 });
 
   const { getCount } = useCartContext();
+  const { getItemsCount } = useWishlistContext();
 
   const onMenuClick = () => {
     setOpened((o) => !o);
@@ -98,12 +101,20 @@ export default function AppShellMain() {
               </Flex>
 
               <Flex style={{ alignItems: "center" }}>
-                <Flex style={{cursor: "pointer", textDecoration: "none"}} component={Link} to="/cart">
+                <Flex style={{ cursor: "pointer", textDecoration: "none" }} component={Link} to="/wishlist">
+                  <ActionIcon>
+                    <IconHeart color={theme.colors.gray[6]} size="xl" />
+                  </ActionIcon>
+                  <Text color={theme.colors.gray[6]} mr="md" size="lg">({getItemsCount()})</Text>
+                </Flex>
+
+                <Flex style={{ cursor: "pointer", textDecoration: "none" }} component={Link} to="/cart">
                   <ActionIcon>
                     <IconShoppingCart color={theme.colors.gray[6]} size="xl" />
                   </ActionIcon>
                   <Text color={theme.colors.gray[6]} mr="md" size="lg">({getCount()})</Text>
                 </Flex>
+
                 <LightAndDarkModeButton />
               </Flex>
             </Flex>
@@ -114,11 +125,12 @@ export default function AppShellMain() {
 
       <Routes>
         {/* <Route path="/" element={<Layout />}> */}
-          <Route index element={<ProductsPage />} />
-          <Route path="/product/:productId" element={<ProductDetailsPage />} />
-          <Route path="/cart" element={< CartPage />} />
+        <Route index element={<ProductsPage />} />
+        <Route path="/product/:productId" element={<ProductDetailsPage />} />
+        <Route path="/cart" element={< CartPage />} />
+        <Route path="wishlist" element={< WishlistPage/>} />
 
-          {CategoriesRoutes}
+        {CategoriesRoutes}
         {/* </Route> */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

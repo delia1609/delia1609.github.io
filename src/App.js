@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import AppShellMain from "./components/AppShell";
 import { CartContextProvider } from "./context/CartContext";
+import { WishlistContextProvider } from "./context/WishlistContext";
 import AppRoutes from "./routes/AppRoutes";
 
 function App() {
@@ -25,17 +26,20 @@ function App() {
   return (
 
     // <StyledApp>
+    <WishlistContextProvider>
       <CartContextProvider>
         <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
           <MantineProvider theme={{ colorScheme }} withNormalizeCSS withGlobalStyles>
             <Paper p="md" radius={0} style={{ minHeight: "100vh" }}>
-                <AppShellMain />
+              <AppShellMain />
             </Paper>
           </MantineProvider>
         </ColorSchemeProvider>
 
-        {/* <AppRoutes /> */} 
+        {/* <AppRoutes /> */}
       </CartContextProvider>
+    </WishlistContextProvider>
+
     // </StyledApp>
   );
 }
