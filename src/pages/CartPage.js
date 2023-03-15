@@ -3,6 +3,8 @@ import { useCartContext } from "../context/CartContext";
 import CartItem from "../components/CartItem";
 import MantineCartItem from "../components/MantineCartItem";
 import { Link } from "react-router-dom";
+import { Text } from "@mantine/core";
+import CategoriesPage from "./CategoriesPage";
 
 const Items = styled.div`
   display: flex;
@@ -14,6 +16,10 @@ const Total = styled.div`
   margin-top: 20px;
   font-size: 1.2em;
   text-align: right;
+`
+
+const StyledDiv = styled.div`
+  margin-bottom: 100px;
 `
 
 export default function CartPage() {
@@ -29,15 +35,18 @@ export default function CartPage() {
 
   if (!cart.length > 0) {
     return (
-      <div>You cart is empty!</div>
+      <>
+        <StyledDiv>You cart is empty. To add products to cart please <Text variant="link" component={Link} to="/">go back to the store.</Text></StyledDiv>
+        <CategoriesPage/>
+      </>
     )
-  }   
+  }
 
   return (
     <>
       <Items>
         {cart.map((element) => (
-          <Link to={`/product/${element.item.id}`} style={{textDecoration: "none"}}>
+          <Link to={`/product/${element.item.id}`} style={{ textDecoration: "none" }}>
             <MantineCartItem key={element.item.id} item={element} />
           </Link>
           // <CartItem key={element.item.id} item={element} />
