@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { getAllCategories } from "../api/productsApi";
-import { Outlet } from "react-router-dom";
-import { StyledNavLink } from "./Layout";
+import { Link, Outlet } from "react-router-dom";
+import { Text } from "@mantine/core";
 
 const Nav = styled.div`
   display: flex;
@@ -33,9 +33,10 @@ export default function CategoriesLayout() {
     <div>
       <Nav>
         {loading ? '...' : categories.map((category, index) => (
-          <StyledNavLink key={index} to={category} end>{category}</StyledNavLink>
+          <Text variant='link' component={Link} key={index} to={category} end tt="capitalize">{category}</Text>
         ))}
       </Nav>
+
       <Container>
         <Outlet />
       </Container>

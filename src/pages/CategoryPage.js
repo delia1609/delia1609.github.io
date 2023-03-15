@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useParams } from "react-router-dom"
 import { getProductsInCategory } from "../api/productsApi";
 import { Header } from "../components/_styled";
-import Products from "../components/Products";
 import Cards from "../components/Cards";
 
 export default function CategoryPage() {
